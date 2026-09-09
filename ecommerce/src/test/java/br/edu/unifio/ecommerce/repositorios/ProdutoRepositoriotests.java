@@ -3,12 +3,10 @@ package br.edu.unifio.ecommerce.repositorios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.math.BigDecimal;
-import java.util.Optional;
+
 
 import br.edu.unifio.ecommerce.entidades.Categoria;
 import br.edu.unifio.ecommerce.entidades.Produto;
-import br.edu.unifio.ecommerce.repositorios.CategoriaRepositorio;
-import br.edu.unifio.ecommerce.repositorios.ProdutoRepositorio;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
