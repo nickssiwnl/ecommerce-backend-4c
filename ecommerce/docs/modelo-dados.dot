@@ -1,0 +1,57 @@
+digraph LinkWork {
+  graph [rankdir=LR, fontname="Helvetica", bgcolor="white", pad=0.4, nodesep=0.7, ranksep=1.1, label="LinkWork - Modelo de Dados (Diagrama de Classes / ER)", labelloc=t, fontsize=20];
+  node [shape=plain, fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=10, color="#444444", arrowhead=none];
+
+  Area [label=<
+<table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+<tr><td bgcolor="#2E5E8C"><font color="white"><b>Area</b></font></td></tr>
+<tr><td align="left" balign="left">PK id : Integer<br/>nome : String (único)<br/>descricao : String</td></tr>
+</table>>];
+
+  Usuario [label=<
+<table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+<tr><td bgcolor="#2E5E8C"><font color="white"><b>Usuario</b></font></td></tr>
+<tr><td align="left" balign="left">PK id : Integer<br/>nome : String<br/>email : String (único)<br/>documento : String (CPF/CNPJ, único)<br/>tipo : TipoUsuario<br/>telefone : String<br/>cidade : String<br/>competencias : String<br/>bloqueado : Boolean</td></tr>
+</table>>];
+
+  Projeto [label=<
+<table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+<tr><td bgcolor="#2E5E8C"><font color="white"><b>Projeto</b></font></td></tr>
+<tr><td align="left" balign="left">PK id : Integer<br/>titulo : String<br/>descricao : String (mín. 30)<br/>valor : BigDecimal<br/>prazo : LocalDate<br/>cidade : String<br/>requisitos : String<br/>status : StatusProjeto<br/>dataPublicacao : LocalDateTime<br/>FK area_id<br/>FK contratante_id<br/>FK freelancer_id (opcional)</td></tr>
+</table>>];
+
+  Proposta [label=<
+<table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+<tr><td bgcolor="#2E5E8C"><font color="white"><b>Proposta</b></font></td></tr>
+<tr><td align="left" balign="left">PK id : Integer<br/>valor : BigDecimal<br/>prazoDias : Integer<br/>mensagem : String<br/>status : StatusProposta<br/>dataEnvio : LocalDateTime<br/>FK projeto_id<br/>FK freelancer_id</td></tr>
+</table>>];
+
+  Mensagem [label=<
+<table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+<tr><td bgcolor="#2E5E8C"><font color="white"><b>Mensagem</b></font></td></tr>
+<tr><td align="left" balign="left">PK id : Integer<br/>conteudo : String<br/>dataEnvio : LocalDateTime<br/>FK remetente_id<br/>FK destinatario_id<br/>FK projeto_id (opcional)</td></tr>
+</table>>];
+
+  Pagamento [label=<
+<table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+<tr><td bgcolor="#2E5E8C"><font color="white"><b>Pagamento</b></font></td></tr>
+<tr><td align="left" balign="left">PK id : Integer<br/>valor : BigDecimal<br/>data : LocalDateTime<br/>status : StatusPagamento<br/>forma : FormaPagamento<br/>FK projeto_id (único)</td></tr>
+</table>>];
+
+  Enums [label=<
+<table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+<tr><td bgcolor="#7A7A7A"><font color="white"><b>Enumerações</b></font></td></tr>
+<tr><td align="left" balign="left"><b>TipoUsuario:</b> FREELANCER, EMPRESA, PESSOA_FISICA<br/><b>StatusProjeto:</b> ABERTO, AGUARDANDO_PAGAMENTO,<br/>   EM_ANDAMENTO, FINALIZADO, CANCELADO<br/><b>StatusProposta:</b> PENDENTE, ACEITA, RECUSADA<br/><b>StatusPagamento:</b> PENDENTE, CONFIRMADO<br/><b>FormaPagamento:</b> PIX, CARTAO_CREDITO,<br/>   CARTAO_DEBITO, BOLETO</td></tr>
+</table>>];
+
+  Area -> Projeto [taillabel="1", headlabel="0..*", label="classifica"];
+  Usuario -> Projeto [taillabel="1", headlabel="0..*", label="publica (contratante)"];
+  Usuario -> Projeto [taillabel="0..1", headlabel="0..*", label="executa (freelancer)", style=dashed];
+  Projeto -> Proposta [taillabel="1", headlabel="0..*", label="recebe"];
+  Usuario -> Proposta [taillabel="1", headlabel="0..*", label="envia (freelancer)"];
+  Usuario -> Mensagem [taillabel="1", headlabel="0..*", label="remetente"];
+  Usuario -> Mensagem [taillabel="1", headlabel="0..*", label="destinatário"];
+  Projeto -> Mensagem [taillabel="0..1", headlabel="0..*", label="referente a", style=dashed];
+  Projeto -> Pagamento [taillabel="1", headlabel="0..1", label="pago por"];
+}
