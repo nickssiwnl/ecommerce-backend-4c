@@ -146,5 +146,5 @@ Pastas: autenticação/autorização, CRUD de cada entidade, consultas personali
 | Nome completo | ID acadêmico |
 |---------------|--------------|
 | Nicolas Rafael Domiciano Miguel | 272955 |
-| Kauan Teixeira Poma |  |
+| Kauan Teixeira Poma |273730   |
 
