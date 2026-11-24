@@ -33,7 +33,7 @@ Disponibilizar uma API REST que implemente o fluxo principal do MVP descrito no 
 ## Arquitetura
 
 ```
-src/main/java/br/edu/unifio/linkwork
+ecommerce/src/main/java/br/edu/unifio/linkwork
 ├── entidades/       # Entidades JPA (Area, Usuario, Projeto, Proposta, Mensagem, Pagamento)
 ├── enums/           # TipoUsuario, StatusProjeto, StatusProposta, StatusPagamento, FormaPagamento
 ├── repositorios/    # Spring Data JPA (inclui consultas personalizadas)
@@ -99,38 +99,41 @@ Autenticação **HTTP Basic** com usuários de teste em memória:
 
 ### Passos
 
-1. Clone o repositório:
+1. Clone o repositório e entre na pasta do projeto:
    ```bash
-   git clone <url-do-repositorio>
-   cd linkwork
+   git clone https://github.com/nickssiwnl/ecommerce-backend-4c.git
+   cd ecommerce-backend-4c/ecommerce
    ```
-2. Ajuste usuário e senha do MySQL em `src/main/resources/application.properties`:
+2. Confira a conexão com o MySQL em `src/main/resources/application.properties`.
+   O projeto já está configurado com o usuário de teste do ambiente da disciplina (Codespace):
    ```properties
-   spring.datasource.username=root
-   spring.datasource.password=root
+   spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce?createDatabaseIfNotExist=true&serverTimezone=America/Sao_Paulo
+   spring.datasource.username=sergio
+   spring.datasource.password=123@Mudar
    ```
-   O banco `linkwork` é criado automaticamente.
+   Se usar outro MySQL, troque usuário e senha pelos do seu ambiente.
+   As tabelas são criadas automaticamente no banco `ecommerce`.
 3. Execute a aplicação:
    ```bash
-   mvn spring-boot:run
+   ./mvnw spring-boot:run
    ```
-   ou rode a classe `LinkworkApplication` pela IDE.
+   No Windows: `mvnw.cmd spring-boot:run`, ou rode a classe `LinkworkApplication` pela IDE.
 4. A API ficará disponível em `http://localhost:8080`.
 
 > Com `spring.jpa.hibernate.ddl-auto=create`, as tabelas são recriadas e o `import.sql` é recarregado **a cada execução**, deixando o banco sempre no mesmo estado inicial.
 
 ### Testes automatizados
 
-Com o MySQL em execução:
+Com o MySQL em execução, dentro da pasta `ecommerce`:
 
 ```bash
-mvn test
+./mvnw test
 ```
 
 ## Testes com Postman
 
-1. Importe `postman/projeto-integrador.postman_collection.json` no Postman.
-2. As variáveis (`baseUrl`, usuários e senhas de teste) já estão na coleção.
+1. Importe `ecommerce/postman/projeto-integrador.postman_collection.json` no Postman.
+2. As variáveis (`baseUrl`, usuários e senhas de teste) já estão na coleção, assim como as respostas salvas (Save Response) de cada requisição.
 3. **Reinicie a aplicação** e execute as pastas na ordem **00 → 07** (os ids usados dependem dos dados iniciais).
 4. A descrição de cada requisição informa o status esperado.
 
@@ -139,12 +142,13 @@ Pastas: autenticação/autorização, CRUD de cada entidade, consultas personali
 ## Documentação
 
 - [Documentação dos endpoints](ecommerce/docs/documentacao-api.md)
-- [Modelo de dados](ecommerce/docs/modelo-dados.png) (fonte Graphviz: `docs/modelo-dados.dot`)
+- [Coleção Postman](ecommerce/postman/projeto-integrador.postman_collection.json)
+- [Modelo de dados](ecommerce/docs/modelo-dados.png) (fonte Graphviz: `ecommerce/docs/modelo-dados.dot`)
 
 ## Integrantes
 
 | Nome completo | ID acadêmico |
 |---------------|--------------|
 | Nicolas Rafael Domiciano Miguel | 272955 |
-| Kauan Teixeira Poma |273730   |
+| Kauan Teixeira Poma | 273730 |
 
